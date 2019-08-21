@@ -1,6 +1,6 @@
 ﻿namespace BrowserGame.Core.Dtos
 {
-    public class PlanetDto
+    public class PlanetResponseDto
     {
         public int  Id { get; set; }
         public int Size { get; set; }

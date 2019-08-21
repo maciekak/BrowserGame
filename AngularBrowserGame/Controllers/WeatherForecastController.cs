@@ -28,9 +28,6 @@ namespace AngularBrowserGame.Controllers
         {
             var rng = new Random();
 
-            var a = new PlanetService();
-            var b = a.GetAll().ToList();
-
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
