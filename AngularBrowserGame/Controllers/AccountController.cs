@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using BrowserGame.Core.Dtos;
+using BrowserGame.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AngularBrowserGame.Controllers
@@ -11,5 +10,23 @@ namespace AngularBrowserGame.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+
+        [HttpPost]
+        [Route("register")]
+        public void Post(AccountRequestDto dto)
+        {
+            var service = new AccountService();
+            service.AddUser(dto);
+        }
+
+        [HttpGet]
+        [Route("users")]
+        public IEnumerable<AccountResponseDto> Get()
+        {
+            var service = new AccountService();
+            var a = service.GetAllUsers().ToList();
+            return a;
+
+        }
     }
 }
