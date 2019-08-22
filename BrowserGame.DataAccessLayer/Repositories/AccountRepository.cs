@@ -36,5 +36,39 @@ namespace BrowserGame.DataAccessLayer.Repositories
             });
             _context.SaveChanges();
         }
+
+        public AccountModel GetAccountByUsernameAndPassword(string username, byte[] passwordHash)
+        {
+            var account = _context.Accounts.FirstOrDefault(a => a.Username == username && a.PasswordHash == passwordHash);
+            if (account == null)
+            {
+                return null;
+            }
+
+            return new AccountModel
+            {
+                Id = account.Id,
+                Username = account.Username,
+                Email = account.Email,
+                PasswordHash = account.PasswordHash
+            };
+        }
+
+        public AccountModel GetById(int id)
+        {
+            var account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+            if (account == null)
+            {
+                return null;
+            }
+
+            return new AccountModel
+            {
+                Id = account.Id,
+                Username = account.Username,
+                Email = account.Email,
+                PasswordHash = account.PasswordHash
+            };
+        }
     }
 }

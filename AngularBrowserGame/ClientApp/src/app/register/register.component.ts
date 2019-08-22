@@ -26,10 +26,6 @@ export class RegisterComponent {
   }
 
   register() {
-    console.log("dupa");
-    console.log(this.baseUrl + 'api/account/register');
-    console.log(this.account);
-    console.log(this.httpOptions);
     this.http.post<Account>(this.baseUrl + 'api/account/register', this.account, this.httpOptions).subscribe(() => this.account = this.account);
   }
 }
