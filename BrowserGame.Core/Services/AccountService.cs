@@ -3,18 +3,19 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using BrowserGame.Core.Dtos;
+using BrowserGame.Core.Services.Interfaces;
 using BrowserGame.DataAccessLayer.Models;
-using BrowserGame.DataAccessLayer.Repositories;
+using BrowserGame.DataAccessLayer.Repositories.Interfaces;
 
 namespace BrowserGame.Core.Services
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
-        private readonly AccountRepository _accountRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public AccountService()
+        public AccountService(IAccountRepository accountRepository)
         {
-            _accountRepository = new AccountRepository();
+            _accountRepository = accountRepository;
         }
 
         public void AddUser(AccountRequestDto dto)

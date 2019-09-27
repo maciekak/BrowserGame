@@ -1,16 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BrowserGame.Core.Dtos;
-using BrowserGame.DataAccessLayer.Repositories;
+using BrowserGame.Core.Services.Interfaces;
+using BrowserGame.DataAccessLayer.Repositories.Interfaces;
 
 namespace BrowserGame.Core.Services
 {
-    public class PlanetService
+    public class PlanetService : IPlanetService
     {
+        private readonly IPlanetRepository _planetRepository;
+
+        public PlanetService(IPlanetRepository planetRepository)
+        {
+            _planetRepository = planetRepository;
+        }
+
         public IEnumerable<PlanetResponseDto> GetAll()
         {
-            var repository = new PlanetRepository();
-            return repository.GetAll().Select(p => new PlanetResponseDto
+            return _planetRepository.GetAll().Select(p => new PlanetResponseDto
             {
                 Id = p.Id,
                 Size = p.Size

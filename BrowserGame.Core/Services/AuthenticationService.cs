@@ -1,24 +1,24 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using BrowserGame.Core.Dtos;
+using BrowserGame.Core.Services.Interfaces;
 using BrowserGame.DataAccessLayer.Repositories;
-using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+using BrowserGame.DataAccessLayer.Repositories.Interfaces;
 
 namespace BrowserGame.Core.Services
 {
-    public class AuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private const string Secret = "123456789";
 
-        private readonly AccountRepository _accountRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public AuthenticationService()
+        public AuthenticationService(IAccountRepository accountRepository)
         {
-            _accountRepository = new AccountRepository();
+            _accountRepository = accountRepository;
         }
 
-        public static string Sha256Hash(string value)
+        private static string Sha256Hash(string value)
         {
             var builder = new StringBuilder();
 
