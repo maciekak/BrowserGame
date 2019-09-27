@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BrowserGame.Core.Dtos;
-using BrowserGame.Core.Services;
+using BrowserGame.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,22 +12,27 @@ namespace AngularBrowserGame.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly IAccountService _accountService;
+        private readonly IAuthenticationService _authenticationService;
+
+        public AccountController(IAccountService accountService, IAuthenticationService authenticationService)
+        {
+            _accountService = accountService;
+            _authenticationService = authenticationService;
+        }
 
         [HttpPost]
         [Route("register")]
         public void Register(AccountRequestDto dto)
         {
-            var service = new AccountService();
-            service.AddUser(dto);
+            _accountService.AddUser(dto);
         }
 
         [HttpGet]
         [Route("users")]
         public IEnumerable<AccountResponseDto> GetUsers()
         {
-            var service = new AccountService();
-            var a = service.GetAllUsers().ToList();
-            return a;
+            return _accountService.GetAllUsers().ToList();
 
         }
 
@@ -35,8 +40,7 @@ namespace AngularBrowserGame.Controllers
         [Route("login")]
         public int Login(AccountRequestDto dto)
         {
-            var service = new AuthenticationService();
-            var logInResponse = service.LogIn(dto);
+            var logInResponse = _authenticationService.LogIn(dto);
 
             if (logInResponse == null)
             {
@@ -57,14 +61,13 @@ namespace AngularBrowserGame.Controllers
         [Route("logged")]
         public bool IsLogged()
         {
-            var service = new AuthenticationService();
             var cookie = Request.Cookies["authentication"];
             if (cookie == null)
             {
                 return false;
             }
 
-            return service.IsLoggedIn(cookie);
+            return _authenticationService.IsLoggedIn(cookie);
         }
     }
 }
