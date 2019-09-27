@@ -3,14 +3,16 @@ using System;
 using BrowserGame.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BrowserGame.Database.Migrations
 {
     [DbContext(typeof(BrowserGameContext))]
-    partial class BrowserGameContextModelSnapshot : ModelSnapshot
+    [Migration("20190927152804_Players")]
+    partial class Players
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

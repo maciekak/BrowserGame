@@ -7,6 +7,7 @@ namespace BrowserGame.Database
     {
         public DbSet<Planet> Planets { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Player> Players { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
