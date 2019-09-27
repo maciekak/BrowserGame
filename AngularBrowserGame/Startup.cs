@@ -1,3 +1,6 @@
+using BrowserGame.Core.DependencyInjection;
+using BrowserGame.DataAccessLayer.DependencyInjection;
+using BrowserGame.Database.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -20,6 +23,10 @@ namespace AngularBrowserGame
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            services.AddServicesDependencies();
+            services.AddRepositoryDependencies();
+            services.AddContextDependencies();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

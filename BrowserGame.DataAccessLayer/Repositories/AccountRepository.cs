@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BrowserGame.DataAccessLayer.Models;
+using BrowserGame.DataAccessLayer.Repositories.Interfaces;
 using BrowserGame.Database;
 using BrowserGame.Database.Models;
 
 namespace BrowserGame.DataAccessLayer.Repositories
 {
-    public class AccountRepository
+    public class AccountRepository : IAccountRepository
     {
         private readonly BrowserGameContext _context;
 
-        public AccountRepository()
+        public AccountRepository(BrowserGameContext context)
         {
-            _context = new BrowserGameContext();
+            _context = context;
         }
 
         public IEnumerable<AccountModel> GetAll()
